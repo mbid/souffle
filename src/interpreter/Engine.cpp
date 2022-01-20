@@ -740,6 +740,7 @@ RamDomain Engine::execute(const Node* node, Context& ctxt) {
                             break;
                         case TypeAttribute::ADT: fatal("ADT support is not implemented");
                         case TypeAttribute::Record: fatal("Record support is not implemented");
+                        case TypeAttribute::Quotient: fatal("Quotient support is not implemented");
                     }
                 }
 
@@ -752,6 +753,7 @@ RamDomain Engine::execute(const Node* node, Context& ctxt) {
                     case TypeAttribute::Float: codomain = &FFI_RamFloat; break;
                     case TypeAttribute::ADT: fatal("Not implemented");
                     case TypeAttribute::Record: fatal("Not implemented");
+                    case TypeAttribute::Quotient: fatal("Not implemented");
                 }
 
                 // Call the external function.
@@ -779,6 +781,7 @@ RamDomain Engine::execute(const Node* node, Context& ctxt) {
                         case TypeAttribute::Float: fatal("Floats must be handled seperately");
                         case TypeAttribute::ADT: fatal("Not implemented");
                         case TypeAttribute::Record: fatal("Not implemented");
+                        case TypeAttribute::Quotient: fatal("Not implemented");
                     }
                     fatal("Unsupported user defined operator");
                 }

@@ -654,6 +654,7 @@ void TypeCheckerImpl::visit_(type_identity<BinaryConstraint>, const BinaryConstr
                               case TypeAttribute::Float: out << "`float`"; break;
                               case TypeAttribute::Record: out << "a record"; break;
                               case TypeAttribute::ADT: out << "a sum"; break;
+                              case TypeAttribute::Quotient: out << "quotient"; break;
                           }
                       });
                 report.addError(ss.str(), side.getSrcLoc());

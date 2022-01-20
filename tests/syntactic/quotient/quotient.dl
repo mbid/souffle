@@ -1,0 +1,3 @@
+// declaration of a quotient type
+.type Quot <: symbol
+.decl A(x:Quot) 

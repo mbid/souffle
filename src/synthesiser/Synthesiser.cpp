@@ -1035,6 +1035,7 @@ void Synthesiser::emitCode(std::ostream& out, const Statement& stmt) {
 
                 case TypeAttribute::Symbol:
                 case TypeAttribute::ADT:
+                case TypeAttribute::Quotient:
                 case TypeAttribute::Record: type = "RamDomain"; break;
             }
             out << type << " res0 = " << init << ";\n";
@@ -1214,6 +1215,7 @@ void Synthesiser::emitCode(std::ostream& out, const Statement& stmt) {
 
                 case TypeAttribute::Symbol:
                 case TypeAttribute::ADT:
+                case TypeAttribute::Quotient:
                 case TypeAttribute::Record: type = "RamDomain"; break;
             }
             out << type << " res0 = " << init << ";\n";
@@ -2264,6 +2266,7 @@ void Synthesiser::emitCode(std::ostream& out, const Statement& stmt) {
                             out << ").c_str()";
                             break;
                         case TypeAttribute::ADT:
+                        case TypeAttribute::Quotient:
                         case TypeAttribute::Record: fatal("unhandled type");
                     }
                 }
@@ -2454,6 +2457,7 @@ void Synthesiser::generateCode(std::ostream& sos, const std::string& id, bool& w
                 case TypeAttribute::Symbol: return "const char *";
                 case TypeAttribute::ADT: fatal("adts cannot be used by user-defined functors");
                 case TypeAttribute::Record: fatal("records cannot be used by user-defined functors");
+                case TypeAttribute::Quotient: fatal("quotients cannot be used by user-defined functors");
             }
 
             UNREACHABLE_BAD_CASE_ANALYSIS

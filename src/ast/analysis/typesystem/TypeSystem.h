@@ -98,10 +98,11 @@ protected:
  * Constant Type Class
  *
  * This type class represents the type of a constant. Currently, we have
- * in Souffle following constant types: number, unsigned, float, and symbol.
+ * in Souffle following constant types: number, unsigned, float, symbol and quotient.
  *
  * ConstantType =  NumberConstant | UnsignedConstant |
- *                 FloatConstant | SymbolConstant
+ *                 FloatConstant | SymbolConstant |
+ *                 QuotientConstant
  */
 class ConstantType : public Type {
     ConstantType(const TypeEnvironment& environment, const QualifiedName& name) : Type(environment, name) {}
@@ -173,11 +174,11 @@ private:
  *
  * Primitive types in Souffle are the actual computational
  * domains. Currently, we have number, unsigned, float,
- * and symbol. This class are pre-built and are concrete
- * types in the RAM (not user-defined types).
+ * symbol and quotient. This class are pre-built and are
+ * concrete types in the RAM (not user-defined types).
  *
  * PrimitiveType = Number | Unsigned |
- *                 Float | Symbol
+ *                 Float | Symbol | Quotient
  */
 class PrimitiveType : public SubsetType {
 public:
@@ -513,6 +514,7 @@ public:
             case TypeAttribute::Unsigned: return getType("__unsignedConstant");
             case TypeAttribute::Float: return getType("__floatConstant");
             case TypeAttribute::Symbol: return getType("__symbolConstant");
+            case TypeAttribute::Quotient: return getType("__quotientConstant");
             case TypeAttribute::Record: return getType("__numberConstant");
             case TypeAttribute::ADT: return getType("__numberConstant");
         }

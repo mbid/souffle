@@ -32,6 +32,7 @@ enum class TypeAttribute {
     Float,     // Floating point number.
     Record,    // Record
     ADT,       // ADT
+    Quotient,  // Quotient
 };
 
 // Printing of the TypeAttribute Enum.
@@ -43,6 +44,7 @@ inline std::ostream& operator<<(std::ostream& os, TypeAttribute T) {
         case TypeAttribute::Unsigned: return os << "TypeAttribute::Unsigned";
         case TypeAttribute::Record: return os << "TypeAttribute::Record";
         case TypeAttribute::ADT: return os << "TypeAttribute::ADT";
+        case TypeAttribute::Quotient: return os << "TypeAttribute::Quotient";
     }
 
     fatal("unhandled `TypeAttribute`");

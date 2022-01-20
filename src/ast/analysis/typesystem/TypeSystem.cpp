@@ -49,8 +49,9 @@ TypeSet TypeEnvironment::initializeConstantTypes() {
     auto& floatConstant = createType<ConstantType>("__floatConstant");
     auto& symbolConstant = createType<ConstantType>("__symbolConstant");
     auto& unsignedConstant = createType<ConstantType>("__unsignedConstant");
+    auto& quotientConstant = createType<ConstantType>("__quotientConstant");
 
-    return TypeSet(signedConstant, floatConstant, symbolConstant, unsignedConstant);
+    return TypeSet(signedConstant, floatConstant, symbolConstant, unsignedConstant, quotientConstant);
 }
 
 TypeSet TypeEnvironment::initializePrimitiveTypes() {
@@ -62,8 +63,9 @@ TypeSet TypeEnvironment::initializePrimitiveTypes() {
     CREATE_PRIMITIVE(float);
     CREATE_PRIMITIVE(symbol);
     CREATE_PRIMITIVE(unsigned);
+    CREATE_PRIMITIVE(quotient);
 
-    return TypeSet(numberType, floatType, symbolType, unsignedType);
+    return TypeSet(numberType, floatType, symbolType, unsignedType, quotientType);
 
 #undef CREATE_PRIMITIVE
 }

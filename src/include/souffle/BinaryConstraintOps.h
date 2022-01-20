@@ -265,22 +265,23 @@ inline BinaryConstraintOp convertOverloadedConstraint(
     };
 
     // clang-format off
-#define COMPARE_CONSTRAINT_FLOAT_OR_RAW(op)                             \
-    case BinaryConstraintOp::op:                                        \
-        switch (toType) {                                               \
-        default                     : return BinaryConstraintOp::   op; \
-        case TypeAttribute::Float   : return BinaryConstraintOp::F##op; \
+#define COMPARE_CONSTRAINT_FLOAT_OR_RAW(op)                              \
+    case BinaryConstraintOp::op:                                         \
+        switch (toType) {                                                \
+        default                      : return BinaryConstraintOp::   op; \
+        case TypeAttribute::Float    : return BinaryConstraintOp::F##op; \
         }
-#define COMPARE_CONSTRAINT(op)                                          \
-    case BinaryConstraintOp::op:                                        \
-        switch (toType) {                                               \
-        case TypeAttribute::Signed  : return BinaryConstraintOp::   op; \
-        case TypeAttribute::Unsigned: return BinaryConstraintOp::U##op; \
-        case TypeAttribute::Float   : return BinaryConstraintOp::F##op; \
-        case TypeAttribute::Symbol  : return BinaryConstraintOp::S##op; \
-        case TypeAttribute::ADT     :                                   \
-        case TypeAttribute::Record  : return FAIL();                    \
-        }                                                               \
+#define COMPARE_CONSTRAINT(op)                                           \
+    case BinaryConstraintOp::op:                                         \
+        switch (toType) {                                                \
+        case TypeAttribute::Signed   : return BinaryConstraintOp::   op; \
+        case TypeAttribute::Unsigned : return BinaryConstraintOp::U##op; \
+        case TypeAttribute::Float    : return BinaryConstraintOp::F##op; \
+        case TypeAttribute::Symbol   : return BinaryConstraintOp::S##op; \
+        case TypeAttribute::ADT      :                                   \
+        case TypeAttribute::Quotient :                                   \
+        case TypeAttribute::Record   : return FAIL();                    \
+        }                                                                \
         break; /* HACK: GCC-9 is incorrectly reporting a case fallthru */
     // clang-format on
 
@@ -455,7 +456,8 @@ inline std::vector<TypeAttribute> getBinaryConstraintTypes(const BinaryConstrain
     case BinaryConstraintOp::F##op: return { TypeAttribute::Float };                   \
     case BinaryConstraintOp::   op:                                                    \
         return { TypeAttribute::Signed, TypeAttribute::Unsigned, TypeAttribute::Float, \
-                 TypeAttribute::Symbol, TypeAttribute::Record, TypeAttribute::ADT};
+                 TypeAttribute::Symbol, TypeAttribute::Record, TypeAttribute::ADT,     \
+                 TypeAttribute::Quotient };
 #define COMPARE_OP(op)                                                  \
     case BinaryConstraintOp::   op: return { TypeAttribute::Signed   }; \
     case BinaryConstraintOp::U##op: return { TypeAttribute::Unsigned }; \
