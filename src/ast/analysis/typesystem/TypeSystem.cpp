@@ -221,6 +221,8 @@ std::string getTypeQualifier(const Type& type) {
             return "r";
         } else if (isOfKind(type, TypeAttribute::ADT)) {
             return "+";
+        } else if (isOfKind(type, TypeAttribute::Quotient)) {
+            return "q";
         } else {
             fatal("Unsupported kind");
         }

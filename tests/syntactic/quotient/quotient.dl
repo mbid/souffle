@@ -1,3 +1,7 @@
 // declaration of a quotient type
-.type Quot <: symbol
-.decl A(x:Quot) 
+.type Quot <: quotient
+.decl A(x:Quot, y:Quot) 
+.input A
+.output A
+
+A(y, x) :- A(x, y).
