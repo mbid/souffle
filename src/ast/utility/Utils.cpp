@@ -75,6 +75,12 @@ FunctorDeclaration* getFunctorDeclaration(const Program& program, const std::str
             [&](const FunctorDeclaration* r) { return r->getName() == name; });
 }
 
+OperatorDeclaration* getOperatorDeclaration(const Program& program, const std::string& name) {
+    // FIXME: O(n). This is awful.
+    return getIf(program.getOperatorDeclarations(),
+            [&](const OperatorDeclaration* op) { return op->getName() == name; });
+}
+
 bool hasClauseWithNegatedRelation(const Relation* relation, const Relation* negRelation,
         const Program* program, const Literal*& foundLiteral) {
     for (auto&& cl : program->getClauses(*relation)) {

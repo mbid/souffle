@@ -82,6 +82,7 @@ WS [ \t\r\v\f]
 %%
 ".decl"/{WS}                          { return yy::parser::make_DECL(yylloc); }
 ".functor"/{WS}                       { return yy::parser::make_FUNCTOR(yylloc); }
+".operator"/{WS}                      { return yy::parser::make_OPERATOR(yylloc); }
 ".input"/{WS}                         { return yy::parser::make_INPUT_DECL(yylloc); }
 ".output"/{WS}                        { return yy::parser::make_OUTPUT_DECL(yylloc); }
 ".printsize"/{WS}                     { return yy::parser::make_PRINTSIZE_DECL(yylloc); }

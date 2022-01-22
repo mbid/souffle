@@ -23,6 +23,7 @@
 #include "ast/Counter.h"
 #include "ast/Directive.h"
 #include "ast/FunctorDeclaration.h"
+#include "ast/OperatorDeclaration.h"
 #include "ast/Pragma.h"
 #include "ast/QualifiedName.h"
 #include "ast/Relation.h"
@@ -47,6 +48,7 @@ public:
 
     void addRelation(Own<ast::Relation> r);
     void addFunctorDeclaration(Own<ast::FunctorDeclaration> f);
+    void addOperatorDeclaration(Own<ast::OperatorDeclaration> op);
     void addDirective(Own<ast::Directive> d);
     void addType(Own<ast::Type> type);
     void addClause(Own<ast::Clause> c);

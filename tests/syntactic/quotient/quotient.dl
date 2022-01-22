@@ -1,6 +1,8 @@
-// declaration of a quotient type
 .type Quot <: quotient
+
 .decl A(x:Quot, y:Quot) 
+.operator P(x: symbol, y: Quot): Quot
+
 .input A
 .output A
 

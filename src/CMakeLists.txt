@@ -27,6 +27,7 @@ set(SOUFFLE_SOURCES
     ast/ExecutionOrder.cpp
     ast/ExecutionPlan.cpp
     ast/FunctorDeclaration.cpp
+    ast/OperatorDeclaration.cpp
     ast/FunctionalConstraint.cpp
     ast/IntrinsicFunctor.cpp
     ast/Negation.cpp

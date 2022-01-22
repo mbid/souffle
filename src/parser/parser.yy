@@ -61,6 +61,7 @@
     #include "ast/Literal.h"
     #include "ast/NilConstant.h"
     #include "ast/NumericConstant.h"
+    #include "ast/OperatorDeclaration.h"
     #include "ast/Pragma.h"
     #include "ast/QualifiedName.h"
     #include "ast/RecordInit.h"
@@ -159,6 +160,7 @@
 %token IF                        ":-"
 %token DECL                      "relation declaration"
 %token FUNCTOR                   "functor declaration"
+%token OPERATOR                  "operator declaration"
 %token INPUT_DECL                "input directives declaration"
 %token OUTPUT_DECL               "output directives declaration"
 %token PRINTSIZE_DECL            "printsize directives declaration"
@@ -248,6 +250,7 @@
 %type <Mov<VecOwn<ast::Attribute>>>            functor_arg_type_list
 %type <Mov<std::string>>                       functor_built_in
 %type <Mov<Own<ast::FunctorDeclaration>>>      functor_decl
+%type <Mov<Own<ast::OperatorDeclaration>>>     operator_decl
 %type <Mov<VecOwn<ast::Atom>>>                 head
 %type <Mov<ast::QualifiedName>>                qualified_name
 %type <Mov<VecOwn<ast::Directive>>>            directive_list
@@ -343,6 +346,10 @@ unit
   | unit functor_decl
     {
       driver.addFunctorDeclaration($functor_decl);
+    }
+  | unit operator_decl
+    {
+      driver.addOperatorDeclaration($operator_decl);
     }
   | unit relation_decl
     {
@@ -1383,6 +1390,16 @@ functor_attribute
   | IDENT[name] COLON qualified_name[type]
     {
       $$ = mk<ast::Attribute>($name, $type, @type);
+    }
+  ;
+
+/**
+ * Operator declaration
+ */
+operator_decl
+  : OPERATOR IDENT LPAREN functor_arg_type_list[args] RPAREN COLON qualified_name
+    {
+      $$ = mk<ast::OperatorDeclaration>($IDENT, $args, mk<ast::Attribute>("return_type", $qualified_name, @qualified_name), @$);
     }
   ;
 

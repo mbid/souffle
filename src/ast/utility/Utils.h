@@ -34,6 +34,7 @@ class Clause;
 class Constraint;
 class Directive;
 class FunctorDeclaration;
+class OperatorDeclaration;
 class IntrinsicFunctor;
 class Literal;
 class Node;
@@ -89,6 +90,15 @@ std::vector<T*> getBodyLiterals(const C& clause) {
  * @return the functor declaration if it exists; nullptr otherwise
  */
 FunctorDeclaration* getFunctorDeclaration(const Program& program, const std::string& name);
+
+/**
+ * Returns the operator declaration with the given name in the program.
+ *
+ * @param program the program
+ * @param name the name of the operator to search for
+ * @return the operator declaration if it exists; nullptr otherwise
+ */
+OperatorDeclaration* getOperatorDeclaration(const Program& program, const std::string& name);
 
 /**
  * Returns whether the given relation has any clauses which contain a negation of a specific relation.

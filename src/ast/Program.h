@@ -22,6 +22,7 @@
 #include "ast/Directive.h"
 #include "ast/FunctorDeclaration.h"
 #include "ast/Node.h"
+#include "ast/OperatorDeclaration.h"
 #include "ast/Pragma.h"
 #include "ast/QualifiedName.h"
 #include "ast/Relation.h"
@@ -138,6 +139,9 @@ public:
     /** Return functor declarations */
     std::vector<FunctorDeclaration*> getFunctorDeclarations() const;
 
+    /** Return operator declarations */
+    std::vector<OperatorDeclaration*> getOperatorDeclarations() const;
+
     /** Return relation directives */
     std::vector<Directive*> getDirectives() const;
 
@@ -224,6 +228,8 @@ protected:
 
     void addFunctorDeclaration(Own<FunctorDeclaration> functor);
 
+    void addOperatorDeclaration(Own<OperatorDeclaration> op);
+
     /** Add component */
     void addComponent(Own<Component> component);
 
@@ -244,6 +250,9 @@ private:
 
     /** External Functors */
     VecOwn<FunctorDeclaration> functors;
+
+    /** Operations */
+    VecOwn<OperatorDeclaration> operators;
 
     /** Component definitions */
     VecOwn<Component> components;

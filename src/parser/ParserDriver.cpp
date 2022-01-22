@@ -113,6 +113,24 @@ void ParserDriver::addFunctorDeclaration(Own<ast::FunctorDeclaration> f) {
     }
 }
 
+void ParserDriver::addOperatorDeclaration(Own<ast::OperatorDeclaration> op) {
+    // TODO: Should check whether relation/functor with that name already
+    // exists. Definitely for functor (obvious clash in syntax), probably for
+    // relation (confusion because there should be a relation for the graph of
+    // the operator).
+    const std::string& name = op->getName();
+    ast::Program& program = translationUnit->getProgram();
+    const ast::OperatorDeclaration* existingOperatorDecl = ast::getOperatorDeclaration(program, op->getName());
+    if (existingOperatorDecl != nullptr) {
+        Diagnostic err(Diagnostic::Type::ERROR,
+                DiagnosticMessage("Redefinition of operator " + toString(name), op->getSrcLoc()),
+                {DiagnosticMessage("Previous definition", existingOperatorDecl->getSrcLoc())});
+        translationUnit->getErrorReport().addDiagnostic(err);
+    } else {
+        program.addOperatorDeclaration(std::move(op));
+    }
+}
+
 void ParserDriver::addRelation(Own<ast::Relation> r) {
     const auto& name = r->getQualifiedName();
     ast::Program& program = translationUnit->getProgram();

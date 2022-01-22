@@ -160,6 +160,10 @@ std::vector<FunctorDeclaration*> Program::getFunctorDeclarations() const {
     return toPtrVector(functors);
 }
 
+std::vector<OperatorDeclaration*> Program::getOperatorDeclarations() const {
+    return toPtrVector(operators);
+}
+
 std::vector<Directive*> Program::getDirectives() const {
     return toPtrVector(relations, &RelationInfo::directives);
 }
@@ -244,6 +248,15 @@ void Program::addFunctorDeclaration(Own<FunctorDeclaration> f) {
     functors.push_back(std::move(f));
 }
 
+
+void Program::addOperatorDeclaration(Own<OperatorDeclaration> op) {
+    assert(op != nullptr);
+    [[maybe_unused]] auto* existingOperationDecl = getIf(getOperatorDeclarations(),
+            [&](const OperatorDeclaration* current) { return current->getName() == op->getName(); });
+    assert(existingOperationDecl == nullptr && "Redefinition of operator!");
+    operators.push_back(std::move(op));
+}
+
 std::vector<ComponentInit*> Program::getComponentInstantiations() const {
     return toPtrVector(instantiations);
 }
@@ -287,6 +300,7 @@ void Program::print(std::ostream& os) const {
     show(instantiations);
     show(types);
     show(functors);
+    show(operators);
     show(getRelations());
     show(getClauses(), "\n\n");
     show(getDirectives(), "\n\n");
